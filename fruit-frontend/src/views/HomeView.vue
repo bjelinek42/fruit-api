@@ -4,7 +4,8 @@ export default {
   data: function () {
     return {
       message: "Welcome to Fruits!",
-      fruits: []
+      fruits: [],
+      newFruitParams: {}
     };
   },
   created: function () {
@@ -16,6 +17,12 @@ export default {
         console.log(response.data);
         this.fruits = response.data
       })
+    },
+    createFruit: function () {
+      axios.post("/fruits", this.newFruitParams).then(response => {
+        console.log("creating fruit", response.data)
+        this.fruits.push(response.data)
+      })
     }
   },
 };
@@ -24,6 +31,11 @@ export default {
 <template>
   <div class="home">
     <h1>{{ message }}</h1>
+    <p>Create New Friuit</p>
+    <p>Name: <input type="text" v-model="newFruitParams.name"></p>
+    <p>Color: <input type="text" v-model="newFruitParams.color"></p>
+    <p>Price: <input type="text" v-model="newFruitParams.price"></p>
+    <button @click="createFruit()">Create!</button>
     <div v-for="fruit in fruits" v-bind:key="fruit">
       <p>{{ fruit.name }}</p>
     </div>
