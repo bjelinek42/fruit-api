@@ -19,4 +19,13 @@ class FruitsController < ApplicationController
     render json: fruit
   end
 
+  def update
+    fruit = Fruit.find(params[:id])
+    fruit.name = params[:name]
+    fruit.color = params[:color]
+    fruit.price = params[:price]
+    fruit.save
+    render json: fruit
+  end
+
 end
