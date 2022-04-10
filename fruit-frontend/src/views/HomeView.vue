@@ -6,7 +6,8 @@ export default {
       message: "Welcome to Fruits!",
       fruits: [],
       newFruitParams: {},
-      currentFruit: {}
+      currentFruit: {},
+      editFruitParams: {}
     };
   },
   created: function () {
@@ -28,6 +29,12 @@ export default {
     showFruit: function (fruit) {
       this.currentFruit = fruit
       document.querySelector("#fruit-info").showModal()
+    },
+    patchFruit: function (fruit) {
+      axios.patch(`/fruits/${fruit.id}`, this.editFruitParams).then(response => {
+        console.log("editing params", response.data);
+        this.editFruitParams = {}
+      })
     }
   },
 };
@@ -49,6 +56,11 @@ export default {
           <p>Name: {{ currentFruit.name }}</p>
           <p>Color: {{ currentFruit.color }}</p>
           <p>Price: {{ currentFruit.price }}</p>
+          <p>Edit Info</p>
+          <p>Name: <input type="text" v-model="editFruitParams.name"></p>
+          <p>Color: <input type="text" v-model="editFruitParams.color"></p>
+          <p>Price: <input type="text" v-model="editFruitParams.price"></p>
+          <button @click="patchFruit(currentFruit)">Update</button>
           <button>Close</button>
         </form>
       </dialog>
