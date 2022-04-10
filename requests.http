@@ -2,3 +2,6 @@ GET http://localhost:3000/fruits
 
 ###
 POST http://localhost:3000/fruits
+
+###
+GET http://localhost:3000/fruits/2
