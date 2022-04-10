@@ -28,4 +28,9 @@ class FruitsController < ApplicationController
     render json: fruit
   end
 
+  def destroy
+    fruit = Fruit.find(params[:id])
+    fruit.delete
+    render json: {message: "fruit deleted"}
+  end
 end
