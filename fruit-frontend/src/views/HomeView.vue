@@ -5,7 +5,8 @@ export default {
     return {
       message: "Welcome to Fruits!",
       fruits: [],
-      newFruitParams: {}
+      newFruitParams: {},
+      currentFruit: {}
     };
   },
   created: function () {
@@ -23,6 +24,10 @@ export default {
         console.log("creating fruit", response.data)
         this.fruits.push(response.data)
       })
+    },
+    showFruit: function (fruit) {
+      this.currentFruit = fruit
+      document.querySelector("#fruit-info").showModal()
     }
   },
 };
@@ -38,6 +43,15 @@ export default {
     <button @click="createFruit()">Create!</button>
     <div v-for="fruit in fruits" v-bind:key="fruit">
       <p>{{ fruit.name }}</p>
+      <button @click="showFruit(fruit)">More Info</button>
+      <dialog id="fruit-info">
+        <form method="dialog">
+          <p>Name: {{ currentFruit.name }}</p>
+          <p>Color: {{ currentFruit.color }}</p>
+          <p>Price: {{ currentFruit.price }}</p>
+          <button>Close</button>
+        </form>
+      </dialog>
     </div>
   </div>
 </template>
