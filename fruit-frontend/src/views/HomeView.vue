@@ -35,6 +35,11 @@ export default {
         console.log("editing params", response.data);
         this.editFruitParams = {}
       })
+    },
+    destroyFruit: function (fruit) {
+      axios.delete(`/fruits/${fruit.id}`).then(response => {
+        console.log("deleting...", response.data)
+      })
     }
   },
 };
@@ -62,6 +67,7 @@ export default {
           <p>Price: <input type="text" v-model="editFruitParams.price"></p>
           <button @click="patchFruit(currentFruit)">Update</button>
           <button>Close</button>
+          <button @click="destroyFruit(currentFruit)">Delete</button>
         </form>
       </dialog>
     </div>
